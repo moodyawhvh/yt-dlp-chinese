@@ -1,12 +1,14 @@
-# Generate certificates for client cert tests
+> 🌐 本文档由 [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp) 翻译,英文原版见原项目。
 
-## CA
+# 生成客户端证书测试所需证书
+
+## CA(证书颁发机构)
 ```sh
 openssl ecparam -name prime256v1 -genkey -noout -out ca.key
 openssl req -new -x509 -sha256 -days 6027 -key ca.key -out ca.crt -subj "/CN=ytdlptest"
 ```
 
-## Client
+## 客户端
 ```sh
 openssl ecparam -name prime256v1 -genkey -noout -out client.key
 openssl ec -in client.key -out clientencrypted.key -passout pass:foobar -aes256
