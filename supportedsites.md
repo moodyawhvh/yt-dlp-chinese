@@ -1,9 +1,13 @@
-# Supported sites
+> 🌐 本文档由 [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp) 翻译,英文原版见原项目。
 
-Below is a list of all extractors that are currently included with yt-dlp.
-If a site is not listed here, it might still be supported by yt-dlp's embed extraction or generic extractor.
-Not all sites listed here are guaranteed to work; websites are constantly changing and sometimes this breaks yt-dlp's support for them.
-The only reliable way to check if a site is supported is to try it.
+# 支持的站点(Supported sites)
+
+以下是 yt-dlp 目前内置的全部提取器列表。
+若某网站未出现在此列表中,它仍可能通过 yt-dlp 的内嵌提取(embed extraction)或通用提取器(generic extractor)获得支持。
+列表中的站点并非全部保证可用;网站不断改版,有时会导致 yt-dlp 对其失效。
+确认某个站点是否受支持,唯一可靠的办法就是实际尝试。
+
+> 📌 注:本文件核心说明已汉化;以下站点列表由 `devscripts/make_supportedsites.py` **自动生成**,站点名与描述保持原样,不作翻译,以保证与上游同步。
 
  - **10play**: [*10play*](## "netrc machine")
  - **10play:season**
