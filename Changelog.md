@@ -1,8 +1,8 @@
-# Changelog
+> 🌐 本文档由 [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp) 翻译,英文原版见原项目。
 
-<!--
-# To create a release, dispatch the https://github.com/yt-dlp/yt-dlp/actions/workflows/release.yml workflow on master
--->
+# 更新日志(Changelog)
+
+> 📌 注:本文件是**自动生成的完整发布日志**(原文约 78 万字符,远超翻译阈值),故仅汉化本说明头;各版本的具体变更条目保持英文原样(每条均含上游提交与 PR 链接,可直接点阅)。本文档的重点汉化内容见 [README.zh-CN.md](README.zh-CN.md) 与 [docs/](docs/) 目录下的指南。
 
 ### 2026.08.19
 
