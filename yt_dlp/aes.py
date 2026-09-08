@@ -4,6 +4,15 @@ from math import ceil
 from .compat import compat_ord
 from .dependencies import Cryptodome
 
+# ============================================================
+# 模块说明(中文注释为翻译版新增,原逻辑未做任何改动):
+# 本模块是 yt-dlp 的 AES 实现。
+# 优先使用 pycryptodome(Cryptodome)加速加解密;
+# 未安装时回退到下面这套纯 Python 的 AES/Rijndael 实现,
+# 用于解密 HLS(AES-128)、下载器等场景的加密媒体数据。
+# 支持模式:ECB / CBC / CTR / GCM;密钥既支持 bytes 也支持 int 列表。
+# ============================================================
+
 if Cryptodome.AES:
     def aes_cbc_decrypt_bytes(data, key, iv):
         """ Decrypt bytes with AES-CBC using pycryptodome """
@@ -27,10 +36,11 @@ def aes_cbc_encrypt_bytes(data, key, iv, **kwargs):
     return bytes(aes_cbc_encrypt(*map(list, (data, key, iv)), **kwargs))
 
 
-BLOCK_SIZE_BYTES = 16
+BLOCK_SIZE_BYTES = 16  # AES 分组大小:16 字节(128 位)
 
 
 def unpad_pkcs7(data):
+    # 去除 PKCS#7 填充:按最后一个字节的值截掉对应数量的填充字节
     return data[:-compat_ord(data[-1])]
 
 
@@ -93,6 +103,7 @@ def aes_ecb_encrypt(data, key, iv=None):
     return encrypted_data
 
 
+# ---- ECB 模式:各分组相互独立加解密(无链式反馈) ----
 def aes_ecb_decrypt(data, key, iv=None):
     """
     Decrypt with aes in ECB mode
@@ -112,6 +123,7 @@ def aes_ecb_decrypt(data, key, iv=None):
     return encrypted_data[:len(data)]
 
 
+# ---- CTR 计数器模式:加密与解密流程完全一致,流式可并行 ----
 def aes_ctr_decrypt(data, key, iv):
     """
     Decrypt with aes in counter mode
@@ -148,6 +160,7 @@ def aes_ctr_encrypt(data, key, iv):
     return encrypted_data[:len(data)]
 
 
+# ---- CBC 链式模式:每个分组先解密再与前一个密文块异或 ----
 def aes_cbc_decrypt(data, key, iv):
     """
     Decrypt with aes in CBC mode
@@ -201,6 +214,7 @@ def aes_cbc_encrypt(data, key, iv, *, padding_mode='pkcs7'):
     return encrypted_data
 
 
+# ---- GCM 认证加密模式:解密同时用 GHASH 校验认证标签,标签不符即抛错 ----
 def aes_gcm_decrypt_and_verify(data, key, tag, nonce):
     """
     Decrypt with aes in GBM mode and checks authenticity using tag
@@ -244,6 +258,7 @@ def aes_gcm_decrypt_and_verify(data, key, tag, nonce):
     return decrypted_data
 
 
+# ---- 核心:单个 16 字节分组的 AES 轮函数(SubBytes/ShiftRows/MixColumns/AddRoundKey) ----
 def aes_encrypt(data, expanded_key):
     """
     Encrypt one block with aes
@@ -284,6 +299,7 @@ def aes_decrypt(data, expanded_key):
     return xor(data, expanded_key[:BLOCK_SIZE_BYTES])
 
 
+# ---- 辅助入口:用密码派生密钥、以 CTR 模式解密 Base64 文本(旧版站点通用方案) ----
 def aes_decrypt_text(data, password, key_size_bytes):
     """
     Decrypt text
@@ -312,6 +328,7 @@ def aes_decrypt_text(data, password, key_size_bytes):
     return bytes(decrypted_data)
 
 
+# ---- Rijndael 常量表:轮常量 / S 盒及逆 S 盒 / 列混合矩阵 / GF(2^8) 指数与对数表 ----
 RCON = (0x8d, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36)
 SBOX = (0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
         0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0,
@@ -387,6 +404,7 @@ RIJNDAEL_LOG_TABLE = (0x00, 0x00, 0x19, 0x01, 0x32, 0x02, 0x1a, 0xc6, 0x4b, 0xc7
                       0x67, 0x4a, 0xed, 0xde, 0xc5, 0x31, 0xfe, 0x18, 0x0d, 0x63, 0x8c, 0x80, 0xc0, 0xf7, 0x70, 0x07)
 
 
+# ---- 密钥扩展:把 16/24/32 字节密钥展开为 176/208/240 字节的轮密钥序列 ----
 def key_expansion(data):
     """
     Generate key schedule
@@ -517,6 +535,7 @@ def block_product(block_x, block_y):
     return block_z
 
 
+# ---- GHASH:GCM 模式的认证散列(GF(2^128) 上的乘法累加) ----
 def ghash(subkey, data):
     # NIST SP 800-38D, Algorithm 2
 

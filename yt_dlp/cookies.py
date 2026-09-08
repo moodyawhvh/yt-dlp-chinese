@@ -46,6 +46,14 @@ from .utils import (
 from .utils._utils import _YDLLogger
 from .utils.networking import normalize_url
 
+# ============================================================
+# 模块说明(中文注释为翻译版新增,原逻辑未做任何改动):
+# 本模块实现 --cookies-from-browser / --cookies 等功能:
+# 1) 从 Firefox / Chromium 系浏览器 / Safari 的本地数据库提取 cookie;
+# 2) 各浏览器 cookie 的解密链(Windows DPAPI、macOS 钥匙串、Linux 桌面密钥环);
+# 3) YoutubeDLCookieJar:yt-dlp 自用的 MozillaCookieJar 扩展。
+# ============================================================
+
 CHROMIUM_BASED_BROWSERS = {'brave', 'chrome', 'chromium', 'edge', 'opera', 'vivaldi', 'whale'}
 SUPPORTED_BROWSERS = CHROMIUM_BASED_BROWSERS | {'firefox', 'safari'}
 
@@ -90,6 +98,7 @@ class CookieLoadError(YoutubeDLError):
     pass
 
 
+# ---- 总入口:合并"浏览器提取"与"cookie 文件"两类来源,统一为一个 CookieJar ----
 def load_cookies(cookie_file, browser_specification, ydl):
     try:
         cookie_jars = []
@@ -113,6 +122,7 @@ def load_cookies(cookie_file, browser_specification, ydl):
         raise CookieLoadError('failed to load cookies')
 
 
+# ---- 按浏览器名分发到对应的提取实现(firefox / safari / chromium 系) ----
 def extract_cookies_from_browser(browser_name, profile=None, logger=YDLLogger(), *, keyring=None, container=None):
     if browser_name == 'firefox':
         return _extract_firefox_cookies(profile, container, logger)
@@ -427,6 +437,7 @@ class ChromeCookieDecryptor:
         raise NotImplementedError('Must be implemented by sub classes')
 
 
+# ---- 按平台选择对应的 Chromium cookie 解密器(mac / win / linux) ----
 def get_cookie_decryptor(browser_root, browser_keyring_name, logger, *, keyring=None, meta_version=None):
     if sys.platform == 'darwin':
         return MacChromeCookieDecryptor(browser_keyring_name, logger, meta_version=meta_version)
@@ -1273,6 +1284,7 @@ class LenientSimpleCookie(http.cookies.SimpleCookie):
                 morsel = None
 
 
+# ---- yt-dlp 核心 CookieJar:读写 Netscape cookies.txt 格式,支持 #HttpOnly_ 前缀行 ----
 class YoutubeDLCookieJar(http.cookiejar.MozillaCookieJar):
     """
     See [1] for cookie file format.
