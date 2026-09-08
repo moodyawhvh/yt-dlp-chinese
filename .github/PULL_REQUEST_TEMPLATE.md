@@ -1,48 +1,50 @@
+> 🌐 本文档由 [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp) 翻译,英文原版见原项目。
+
 <!--
-    **IMPORTANT**: PRs without the template will be CLOSED
+    **重要**:不使用本模板的 PR 将被直接关闭
 
-    Due to the high volume of pull requests, it may be a while before your PR is reviewed.
-    Please try to keep your pull request focused on a single bugfix or new feature.
-    Pull requests with a vast scope and/or very large diff will take much longer to review.
-    It is recommended for new contributors to stick to smaller pull requests, so you can receive much more immediate feedback as you familiarize yourself with the codebase.
+    由于 Pull Request 数量庞大,你的 PR 可能需要等待一段时间才会被评审。
+    请尽量让每个 PR 只聚焦于单个缺陷修复或新功能。
+    范围过大和/或 diff 过大的 PR 评审周期会显著更长。
+    建议新贡献者从较小的 PR 做起,这样在熟悉代码库的过程中能获得更快的反馈。
 
-    PLEASE AVOID FORCE-PUSHING after opening a PR, as it makes reviewing more difficult.
+    提交 PR 后请**避免 force-push**,否则会加大评审难度。
 
-    PLEASE MAKE SURE TO ENABLE EDITS BY MAINTAINERS!
+    请务必允许维护者修改你的分支(MAINTAINER EDITS)!
 -->
 
-### Description of your *pull request* and other information
+### 你的 *pull request* 描述及其他信息
 
-ADD DETAILED DESCRIPTION HERE
+在此处填写详细描述
 
 Fixes #
 
 
-<details open><summary>Template</summary> <!-- OPEN is intentional -->
+<details open><summary>模板</summary> <!-- OPEN is intentional -->
 
 <!--
-    # PLEASE FOLLOW THE GUIDE BELOW
+    # 请遵循以下指引
 
-    - You will be asked some questions, please read them **carefully** and answer honestly
-    - Put an `x` into all the boxes `[ ]` relevant to your *pull request* (like [x])
-    - Use *Preview* tab to see what your *pull request* will actually look like
-    - If any of the questions are left unanswered, your pull request will be closed
-    - If any of your answers are dishonest, you will be permanently blocked from this repository
+    - 系统会向你提出若干问题,请**仔细**阅读并如实回答
+    - 在所有与你的 *pull request* 相关的方框 `[ ]` 中打上 `x`(形如 [x])
+    - 使用 *Preview* 标签页预览 PR 的最终显示效果
+    - 任何问题未作答,你的 PR 将被关闭
+    - 任何回答弄虚作假,你将被永久封禁于本仓库
 -->
 
-### Before submitting a *pull request* you must attest to the following:
-- [ ] This pull request complies with yt-dlp's [**NO AI / NO LLM POLICY**](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#no-ai--no-llm-policy)
-- [ ] I have skimmed through [contributing guidelines](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#developer-instructions) including [yt-dlp coding conventions](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#yt-dlp-coding-conventions)
-- [ ] I have [searched](https://github.com/yt-dlp/yt-dlp/search?q=is%3Apr&type=Issues) the tracker for similar pull requests
+### 提交 *pull request* 前,你必须确认以下事项:
+- [ ] 本 PR 遵守 yt-dlp 的[**禁止 AI / 大语言模型政策**](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#no-ai--no-llm-policy)
+- [ ] 我已通读[贡献指南](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#developer-instructions),包括 [yt-dlp 代码规范](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#yt-dlp-coding-conventions)
+- [ ] 我已[搜索](https://github.com/yt-dlp/yt-dlp/search?q=is%3Apr&type=Issues)过跟踪器,确认没有类似的 Pull Request
 
-### In order to be accepted and merged into yt-dlp each piece of code must be in public domain or released under [Unlicense](http://unlicense.org/). Check those that apply and remove the others:
-- [ ] I am the original author of the code in this PR, and I am willing to release it under [Unlicense](http://unlicense.org/)
-- [ ] I am not the original author of the code in this PR, but it is in the public domain or released under [Unlicense](http://unlicense.org/) (provide reliable evidence)
+### 为被接受并合并进 yt-dlp,每一段代码都必须进入公有领域或以 [Unlicense](http://unlicense.org/) 发布。勾选适用项并删除其余项:
+- [ ] 我是本 PR 中代码的原始作者,愿意以 [Unlicense](http://unlicense.org/) 发布
+- [ ] 我不是本 PR 中代码的原始作者,但其已进入公有领域或以 [Unlicense](http://unlicense.org/) 发布(请提供可靠证据)
 
-### What is the purpose of your *pull request*? Check those that apply and remove the others:
-- [ ] Fix or improvement to an extractor (Make sure to add/update tests)
-- [ ] New extractor ([Piracy websites will not be accepted](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#is-the-website-primarily-used-for-piracy))
-- [ ] Core bug fix/improvement
-- [ ] New feature (It is strongly [recommended to open an issue first](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#adding-new-feature-or-making-overarching-changes))
+### 你的 *pull request* 的目的是什么?勾选适用项并删除其余项:
+- [ ] 修复或改进某个提取器(务必补充/更新测试)
+- [ ] 新增提取器([不接受盗版网站](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#is-the-website-primarily-used-for-piracy))
+- [ ] 核心缺陷修复/改进
+- [ ] 新功能([强烈建议先开 Issue 讨论](https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#adding-new-feature-or-making-overarching-changes))
 
 </details>
